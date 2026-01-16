@@ -20,6 +20,7 @@ public class GatewayController {
     @RequestMapping("/**")
     public ResponseEntity<byte[]> proxy(HttpServletRequest request) throws IOException {
 
+        System.out.println("============== INCOMING REQUEST =================");
 
         String targetBaseUrl = "http://localhost:2323";
 
