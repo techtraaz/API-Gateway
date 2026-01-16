@@ -42,11 +42,11 @@ public class ApiDefServiceImpl implements ApiDefService {
         return apiDefinition.orElse(null);
     }
 
-    @Override
-    public ApiDefinition getApiByName(String name){
-        Optional<ApiDefinition> apiDefinition = apiDefRepo.findByApi_name(name);
-        return apiDefinition.orElse(null);
-    }
+//    @Override
+//    public ApiDefinition getApiByName(String name){
+//        Optional<ApiDefinition> apiDefinition = apiDefRepo.findByApi_name(name);
+//        return apiDefinition.orElse(null);
+//    }
 
     @Override
     public List<ApiDefinition> getAllApi(){

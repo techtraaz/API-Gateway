@@ -9,7 +9,7 @@ public interface ApiDefService {
 
     ApiDefinition addNewApi(ApiDefDto apiDef);
     ApiDefinition getApiById(String id);
-    ApiDefinition getApiByName(String name);
+//    ApiDefinition getApiByName(String name);
     List<ApiDefinition> getAllApi();
     void deleteApiById(String id);
 
