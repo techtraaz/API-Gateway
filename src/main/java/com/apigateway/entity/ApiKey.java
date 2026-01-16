@@ -18,7 +18,8 @@ public class ApiKey {
     @Id
     private String id;
 
-    private String key_value;
+    @Column(name = "key_value")
+    private String key;
     private String user_id;
     private String status;
     private LocalDateTime expires_at;
