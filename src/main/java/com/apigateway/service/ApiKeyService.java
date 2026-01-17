@@ -10,5 +10,7 @@ public interface ApiKeyService {
     ApiKey createApiKey(ApiKeyDto apiKeyDto);
     ApiKey getApiKeyByValue(String apikey);
     List<ApiKey> getAllApiKeys();
+    void deleteApiKey(String id);
+    ApiKey updateApiKey(ApiKeyDto apiKeyDto);
 
 }
