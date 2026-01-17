@@ -7,7 +7,9 @@ import com.apigateway.service.ApiKeyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +19,17 @@ public class ApiKeyServiceImpl implements ApiKeyService {
 
     @Override
     public ApiKey createApiKey(ApiKeyDto apiKeyDto){
+
+        ApiKey apiKey = ApiKey.builder()
+                .id(UUID.randomUUID().toString())
+                .user_id(apiKeyDto.getUser_id())
+                .status(apiKeyDto.getStatus())
+                .expires_at(apiKeyDto.getExpires_at())
+                .key(apiKeyDto.getKey())
+                .created_at(LocalDateTime.now())
+                .build();
+
+        return apiKeyRepo.save(apiKey);
 
     }
 
@@ -36,7 +49,7 @@ public class ApiKeyServiceImpl implements ApiKeyService {
 
     }
 
-    
+
     @Override
     ApiKey updateApiKey(ApiKeyDto apiKeyDto){
 
