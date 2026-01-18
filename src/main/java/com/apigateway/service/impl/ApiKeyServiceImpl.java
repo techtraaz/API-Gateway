@@ -68,7 +68,7 @@ public class ApiKeyServiceImpl implements ApiKeyService {
     public ApiKey updateApiKey(ApiKeyDto apiKeyDto){
 
         Optional <ApiKey> apiKey = apiKeyRepo.findByKey(apiKeyDto.getKey());
-        
+
 
     }
 
