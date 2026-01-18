@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -36,22 +37,38 @@ public class ApiKeyServiceImpl implements ApiKeyService {
     @Override
     public ApiKey getApiKeyByValue(String apikey){
 
-    }
+        Optional<ApiKey> apiKey = apiKeyRepo.findById(apikey);
+        if(apiKey.isPresent()){
+            return apiKey.get();
+        }
 
-    @Override
-    List<ApiKey> getAllApiKeys(){
-
-    }
-
-
-    @Override
-    void deleteApiKey(String id){
+        return null;
 
     }
 
+    @Override
+    public List<ApiKey> getAllApiKeys(){
+
+        List<ApiKey> apiKeys = apiKeyRepo.findAll();
+        return apiKeys;
+
+    }
+
 
     @Override
-    ApiKey updateApiKey(ApiKeyDto apiKeyDto){
+    public void deleteApiKey(String id){
+
+        apiKeyRepo.deleteById(id);
+
+
+    }
+
+
+    @Override
+    public ApiKey updateApiKey(ApiKeyDto apiKeyDto){
+
+        Optional <ApiKey> apiKey = apiKeyRepo.findByKey(apiKeyDto.getKey());
+        
 
     }
 
