@@ -23,8 +23,9 @@ public class ApiKeyServiceImpl implements ApiKeyService {
 
         ApiKey apiKey = ApiKey.builder()
                 .id(UUID.randomUUID().toString())
-                .user_id(apiKeyDto.getUser_id())
+                .api_definition_id(apiKeyDto.getApi_definition_id())
                 .status(apiKeyDto.getStatus())
+                .created_at(LocalDateTime.now())
                 .expires_at(apiKeyDto.getExpires_at())
                 .key(apiKeyDto.getKey())
                 .created_at(LocalDateTime.now())

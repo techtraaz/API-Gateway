@@ -18,7 +18,7 @@ public class ApiKey {
 
     @Column(name = "key_value")
     private String key;
-    private String user_id;
+    private String api_definition_id;
     private String status;
     private LocalDateTime expires_at;
     private LocalDateTime created_at;
