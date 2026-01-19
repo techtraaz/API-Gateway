@@ -64,13 +64,13 @@ public class ApiKeyServiceImpl implements ApiKeyService {
     }
 
 
-    @Override
-    public ApiKey updateApiKey(ApiKeyDto apiKeyDto){
-
-        Optional <ApiKey> apiKey = apiKeyRepo.findByKey(apiKeyDto.getKey());
-
-
-    }
+//    @Override
+//    public ApiKey updateApiKey(ApiKeyDto apiKeyDto){
+//
+//        Optional <ApiKey> apiKey = apiKeyRepo.findByKey(apiKeyDto.getKey());
+//
+//
+//    }
 
 
 }
