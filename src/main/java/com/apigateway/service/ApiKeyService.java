@@ -11,9 +11,9 @@ import java.util.List;
 public interface ApiKeyService {
 
     ResponseEntity<ResponseBean> createApiKey(ApiKeyDto apiKeyDto);
-//    ResponseEntity<ResponseBean> getApiKeyByValue(String apikey);
-//    ResponseEntity<List<ResponseBean>> getAllApiKeys();
-//    ResponseEntity<ResponseBean> deleteApiKey(String id);
-//    ApiKey updateApiKey(ApiKeyDto apiKeyDto);
+    ResponseEntity<ResponseBean> getApiKeyByValue(String apikey);
+    ResponseEntity<ResponseBean> getAllApiKeys();
+    ResponseEntity<ResponseBean> deleteApiKey(String id);
+    ResponseEntity<ResponseBean> updateApiKey(ApiKeyDto apiKeyDto);
 
 }
