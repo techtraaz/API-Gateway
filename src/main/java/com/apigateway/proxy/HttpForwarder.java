@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class HttpForwarder {
@@ -33,9 +35,9 @@ public class HttpForwarder {
         byte[] body = StreamUtils.copyToByteArray(request.getInputStream());
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("channel","ruchith");
-        headers.setContentType(MediaType.APPLICATION_JSON);
 
+        Map<String, String> incomingHeaders = extractHeaders(request);
+        incomingHeaders.forEach(headers::set);
 
 
         HttpEntity<byte[]> httpEntity = new HttpEntity<>(body,headers);
@@ -62,6 +64,20 @@ public class HttpForwarder {
         return targetBaseUrl + pathAfterGateway;
     }
 
+
+    private Map<String,String> extractHeaders(HttpServletRequest request) {
+        Map<String,String> headerMap = new HashMap<>();
+        Enumeration<String> headerNames = request.getHeaderNames();
+
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            String headerValue = request.getHeader(headerName);
+            headerMap.put(headerName,headerValue);
+        }
+
+        return headerMap;
+
+    }
 
 
 
