@@ -1,17 +1,19 @@
 package com.apigateway.service;
 
 import com.apigateway.dto.ApiKeyDto;
+import com.apigateway.dto.ResponseBean;
 import com.apigateway.entity.ApiKey;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 
 public interface ApiKeyService {
 
-    ApiKey createApiKey(ApiKeyDto apiKeyDto);
-    ApiKey getApiKeyByValue(String apikey);
-    List<ApiKey> getAllApiKeys();
-    void deleteApiKey(String id);
+    ResponseEntity<ResponseBean> createApiKey(ApiKeyDto apiKeyDto);
+//    ResponseEntity<ResponseBean> getApiKeyByValue(String apikey);
+//    ResponseEntity<List<ResponseBean>> getAllApiKeys();
+//    ResponseEntity<ResponseBean> deleteApiKey(String id);
 //    ApiKey updateApiKey(ApiKeyDto apiKeyDto);
 
 }
