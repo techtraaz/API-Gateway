@@ -1,6 +1,5 @@
 package com.apigateway.controller;
 
-import com.apigateway.proxy.HttpForwarder;
 import com.apigateway.service.GatewayService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class GatewayController {
 
-    private final GatewayService gatewayService;
+   private final GatewayService gatewayService;
 
 
     @RequestMapping("/**")

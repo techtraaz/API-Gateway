@@ -50,8 +50,8 @@ public class HttpForwarder {
 
     private String buildTargetUrl(HttpServletRequest request, String targetBaseUrl) {
 
-        String uri = request.getRequestURI(); // /gateway/person/all
-        String pathAfterGateway = uri.substring("/gateway".length()); // /person/all
+        String uri = request.getRequestURI();
+        String pathAfterGateway = uri.substring("/gateway".length());
 
         String query = request.getQueryString();
 
