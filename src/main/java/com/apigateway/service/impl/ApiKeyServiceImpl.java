@@ -1,10 +1,13 @@
 package com.apigateway.service.impl;
 
 import com.apigateway.dto.ApiKeyDto;
+import com.apigateway.dto.ResponseBean;
 import com.apigateway.entity.ApiKey;
 import com.apigateway.repo.ApiKeyRepo;
 import com.apigateway.service.ApiKeyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,7 +22,7 @@ public class ApiKeyServiceImpl implements ApiKeyService {
     private final ApiKeyRepo apiKeyRepo;
 
     @Override
-    public ApiKey createApiKey(ApiKeyDto apiKeyDto){
+    public ResponseEntity<ResponseBean> createApiKey(ApiKeyDto apiKeyDto){
 
         ApiKey apiKey = ApiKey.builder()
                 .id(UUID.randomUUID().toString())
@@ -31,47 +34,59 @@ public class ApiKeyServiceImpl implements ApiKeyService {
                 .created_at(LocalDateTime.now())
                 .build();
 
-        return apiKeyRepo.save(apiKey);
+        ApiKey savedKey = apiKeyRepo.save(apiKey);
+        ResponseBean responseBean = new ResponseBean("SUCCESS","Api Key Saved",savedKey);
+        return ResponseEntity.ok(responseBean);
 
     }
 
     @Override
-    public ApiKey getApiKeyByValue(String apikey){
+    public ResponseEntity<ResponseBean> getApiKeyByValue(String apikeyReq){
 
-        Optional<ApiKey> apiKey = apiKeyRepo.findById(apikey);
+        Optional<ApiKey> apiKey = apiKeyRepo.findById(apikeyReq);
+        ApiKey apikey = null ;
         if(apiKey.isPresent()){
-            return apiKey.get();
+            apikey =  apiKey.get();
+            ResponseBean responseBean = new ResponseBean("SUCESS","Api Key",apikey);
+            return ResponseEntity.ok(responseBean);
         }
 
-        return null;
+        ResponseBean responseBean = new ResponseBean("FAILURE","Api Key not found","");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBean);
 
     }
 
     @Override
-    public List<ApiKey> getAllApiKeys(){
+    public ResponseEntity<ResponseBean> getAllApiKeys(){
 
         List<ApiKey> apiKeys = apiKeyRepo.findAll();
-        return apiKeys;
+
+        ResponseBean responseBean = new ResponseBean("SUCCESS","Api Keys",apiKeys);
+
+        return ResponseEntity.ok(responseBean);
 
     }
 
 
     @Override
-    public void deleteApiKey(String id){
+    public ResponseEntity<ResponseBean> deleteApiKey(String id){
 
         apiKeyRepo.deleteById(id);
-
+        ResponseBean responseBean = new ResponseBean("SUCCESS","Api Key Deleted",id);
+        return ResponseEntity.ok(responseBean);
 
     }
 
 
-//    @Override
-//    public ApiKey updateApiKey(ApiKeyDto apiKeyDto){
-//
-//        Optional <ApiKey> apiKey = apiKeyRepo.findByKey(apiKeyDto.getKey());
-//
-//
-//    }
+    @Override
+    public ResponseEntity<ResponseBean> updateApiKey(ApiKeyDto apiKeyDto){
+
+        Optional <ApiKey> apiKey = apiKeyRepo.findByKey(apiKeyDto.getKey());
+
+        ResponseBean responseBean = new ResponseBean("SUCCESS","Api Key Updated",apiKey.get());
+        return ResponseEntity.ok(responseBean);
+
+    }
 
 
 }
