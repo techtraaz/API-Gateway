@@ -17,7 +17,8 @@ public class ApiDefinition {
     @Id
     private String id;
 
-    private String api_name;
+    @Column(name = "api_name")
+    private String apiName;
     private String base_url;
     private String user_id;
     private boolean enabled;

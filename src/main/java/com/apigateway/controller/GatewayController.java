@@ -1,7 +1,9 @@
 package com.apigateway.controller;
 
 import com.apigateway.proxy.HttpForwarder;
+import com.apigateway.service.GatewayService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,21 +11,19 @@ import java.io.IOException;
 
 
 @RestController
+@RequestMapping("/gateway")
+@RequiredArgsConstructor
 public class GatewayController {
 
-    private final HttpForwarder forwarder;
+    private final GatewayService gatewayService;
 
-    public GatewayController(HttpForwarder forwarder) {
-        this.forwarder = forwarder;
-    }
 
     @RequestMapping("/**")
     public ResponseEntity<byte[]> proxy(HttpServletRequest request) throws IOException {
 
         System.out.println("============== INCOMING REQUEST =================");
 
-        String targetBaseUrl = "http://localhost:2323";
+        return gatewayService.handle(request);
 
-        return forwarder.forward(request, targetBaseUrl);
     }
 }

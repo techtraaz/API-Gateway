@@ -11,6 +11,6 @@ public interface ApiDefinitionRepo extends JpaRepository<ApiDefinition, String> 
 
     Optional<ApiDefinition> findById(String id);
 
-
+    Optional<ApiDefinition> findByApiName(String apiName);
 
 }

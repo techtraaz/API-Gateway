@@ -24,7 +24,7 @@ public class ApiDefServiceImpl implements ApiDefService {
 
         ApiDefinition apiDefinition = ApiDefinition.builder()
                 .id(UUID.randomUUID().toString())
-                .api_name(apiDef.getApiName())
+                .apiName(apiDef.getApiName())
                 .user_id(apiDef.getUserId())
                 .base_url(apiDef.getBaseUrl())
                 .enabled(apiDef.isEnabled())

@@ -26,10 +26,19 @@ public class HttpForwarder {
         HttpMethod method = HttpMethod.valueOf(request.getMethod());
 
         String targetUrl = buildTargetUrl(request, targetBaseUrl);
+        System.out.println("Method: " + request.getMethod());
+        System.out.println("targetUrl: " + targetUrl);
+
 
         byte[] body = StreamUtils.copyToByteArray(request.getInputStream());
 
-        HttpEntity<byte[]> httpEntity = new HttpEntity<>(body);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("channel","ruchith");
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+
+
+        HttpEntity<byte[]> httpEntity = new HttpEntity<>(body,headers);
 
         return restTemplate.exchange(
                 targetUrl,
@@ -41,21 +50,18 @@ public class HttpForwarder {
 
     private String buildTargetUrl(HttpServletRequest request, String targetBaseUrl) {
 
-        String Uri = request.getRequestURI();
+        String uri = request.getRequestURI(); // /gateway/person/all
+        String pathAfterGateway = uri.substring("/gateway".length()); // /person/all
 
         String query = request.getQueryString();
 
-        String finalUrl;
-
         if (query != null) {
-            finalUrl = targetBaseUrl + Uri + query;
-        }else{
-            finalUrl = targetBaseUrl + Uri;
+            return targetBaseUrl + pathAfterGateway + "?" + query;
         }
 
-        return finalUrl;
-
+        return targetBaseUrl + pathAfterGateway;
     }
+
 
 
 
