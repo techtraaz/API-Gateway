@@ -30,16 +30,9 @@ public class GatewayServiceImpl implements GatewayService {
             throw new RuntimeException("Missing API key");
         }
 
-
         String uri = request.getRequestURI();
         String path = uri.substring("/gateway/".length());
-        String apiName = path.split("/")[0];
-
-
-        ApiDefinition apiDefinition =
-                apiDefinitionRepository.findByApiName(apiName)
-                        .orElseThrow(() -> new RuntimeException("API not found or disabled"));
-
+//        String apiName = path.split("/")[0];
 
         ApiKey apiKey =
                 apiKeyRepository.findByKey(apiKeyValue)
@@ -53,6 +46,10 @@ public class GatewayServiceImpl implements GatewayService {
                 apiKey.getExpires_at().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("API key expired");
         }
+
+        ApiDefinition apiDefinition =
+                apiDefinitionRepository.findByApiName(apiKeyValue)
+                        .orElseThrow(() -> new RuntimeException("API not found or disabled"));
 
         if (!apiKey.getApi_definition_id().equals(apiDefinition.getId())) {
             throw new RuntimeException("API key not allowed for this API");
