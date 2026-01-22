@@ -40,12 +40,18 @@ public class HttpForwarder {
         incomingHeaders.forEach(headers::set);
 
 
-        HttpEntity<byte[]> httpEntity = new HttpEntity<>(body,headers);
+        HttpEntity<byte[]> requestEntity;
+
+        if(incomingHeaders.containsKey("custom-header-present")) {
+            requestEntity = new HttpEntity<>(body,headers);
+        }else{
+            requestEntity = new HttpEntity<>(body);
+        }
 
         return restTemplate.exchange(
                 targetUrl,
                 method,
-                httpEntity,
+                requestEntity,
                 byte[].class
         );
     }
