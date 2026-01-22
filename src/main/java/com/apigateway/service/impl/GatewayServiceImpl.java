@@ -31,7 +31,7 @@ public class GatewayServiceImpl implements GatewayService {
         }
 
         String uri = request.getRequestURI();
-        String path = uri.substring("/gateway/".length());
+//        String path = uri.substring("/gateway/".length());
 //        String apiName = path.split("/")[0];
 
         ApiKey apiKey =
