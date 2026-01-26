@@ -10,10 +10,10 @@ import java.util.List;
 
 public interface ApiKeyService {
 
-    ResponseEntity<ResponseBean> createApiKey(ApiKeyDto apiKeyDto);
-    ResponseEntity<ResponseBean> getApiKeyByValue(String apikey);
-    ResponseEntity<ResponseBean> getAllApiKeys();
-    ResponseEntity<ResponseBean> deleteApiKey(String id);
-    ResponseEntity<ResponseBean> updateApiKey(ApiKeyDto apiKeyDto);
+    ApiKey createApiKey(ApiKeyDto apiKeyDto);
+    ApiKey getApiKeyByValue(String apikey);
+    List<ApiKey> getAllApiKeys();
+    ApiKey deleteApiKey(String id);
+    ApiKey updateApiKey(ApiKeyDto apiKeyDto);
 
 }

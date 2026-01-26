@@ -21,7 +21,13 @@ public class ApiKeyController {
 
     @PostMapping("/add")
     public ResponseEntity<ResponseBean> addNewApiKey(@RequestBody ApiKeyDto apiKeyDto) {
-        return apiKeyService.createApiKey(apiKeyDto);
+        ApiKey apikey = apiKeyService.createApiKey(apiKeyDto);
+        ResponseBean responseBean = new ResponseBean();
+        responseBean.setStatus("success");
+        responseBean.setMessage("API key has been saved successfully");
+        responseBean.setData(apikey);
+        return ResponseEntity.ok(responseBean);
     }
+
 
 }
