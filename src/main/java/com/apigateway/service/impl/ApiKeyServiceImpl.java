@@ -72,12 +72,17 @@ public class ApiKeyServiceImpl implements ApiKeyService {
 
 
     @Override
-    public ResponseEntity<ResponseBean> updateApiKey(ApiKeyDto apiKeyDto){
+    public ApiKey updateApiKey(ApiKeyDto apiKeyDto){
 
-        Optional <ApiKey> apiKey = apiKeyRepo.findByKey(apiKeyDto.getKey());
+        ApiKey existinKey = apiKeyRepo.findById(apiKeyDto.getApi_definition_id()).
+                orElseThrow(() -> new NoDataFoundException("Api Key not found"));
 
-        ResponseBean responseBean = new ResponseBean("SUCCESS","Api Key Updated",apiKey.get());
-        return ResponseEntity.ok(responseBean);
+        existinKey.setKey(apiKeyDto.getKey());
+        existinKey.setStatus(apiKeyDto.getStatus());
+        existinKey.setExpires_at(apiKeyDto.getExpires_at());
+
+        ApiKey savedKey =  apiKeyRepo.save(existinKey);
+        return savedKey;
 
     }
 

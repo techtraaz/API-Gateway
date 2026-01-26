@@ -14,6 +14,6 @@ public interface ApiKeyService {
     ApiKey getApiKeyByValue(String apikey);
     List<ApiKey> getAllApiKeys();
     ApiKey deleteApiKey(String id);
-    ResponseEntity<ResponseBean> updateApiKey(ApiKeyDto apiKeyDto);
+    ApiKey updateApiKey(ApiKeyDto apiKeyDto);
 
 }
