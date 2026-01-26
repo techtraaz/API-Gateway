@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface ApiDefService {
 
-    ResponseEntity<ResponseBean> addNewApi(ApiDefDto apiDef);
-    ResponseEntity<ResponseBean> getApiById(String id);
-    ResponseEntity<ResponseBean> getApiByName(String name);
-    ResponseEntity<ResponseBean> getAllApi();
-    ResponseEntity<ResponseBean> deleteApiById(String id);
+    ApiDefinition addNewApi(ApiDefDto apiDef);
+    ApiDefinition getApiById(String id);
+    ApiDefinition getApiByName(String name);
+    List<ApiDefinition> getAllApi();
+    ResponseBean deleteApiById(String id);
 
 }
