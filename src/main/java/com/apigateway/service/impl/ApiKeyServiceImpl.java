@@ -3,6 +3,7 @@ package com.apigateway.service.impl;
 import com.apigateway.dto.ApiKeyDto;
 import com.apigateway.dto.ResponseBean;
 import com.apigateway.entity.ApiKey;
+import com.apigateway.exception.NoDataFoundException;
 import com.apigateway.repo.ApiKeyRepo;
 import com.apigateway.service.ApiKeyService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class ApiKeyServiceImpl implements ApiKeyService {
     private final ApiKeyRepo apiKeyRepo;
 
     @Override
-    public ResponseEntity<ResponseBean> createApiKey(ApiKeyDto apiKeyDto){
+    public ApiKey createApiKey(ApiKeyDto apiKeyDto){
 
         ApiKey apiKey = ApiKey.builder()
                 .id(UUID.randomUUID().toString())
@@ -35,45 +36,37 @@ public class ApiKeyServiceImpl implements ApiKeyService {
                 .build();
 
         ApiKey savedKey = apiKeyRepo.save(apiKey);
-        ResponseBean responseBean = new ResponseBean("SUCCESS","Api Key Saved",savedKey);
-        return ResponseEntity.ok(responseBean);
+        return savedKey;
 
     }
 
     @Override
-    public ResponseEntity<ResponseBean> getApiKeyByValue(String apikeyReq){
+    public ApiKey getApiKeyByValue(String apikeyReq){
 
-        Optional<ApiKey> apiKey = apiKeyRepo.findById(apikeyReq);
-        ApiKey apikey = null ;
-        if(apiKey.isPresent()){
-            apikey =  apiKey.get();
-            ResponseBean responseBean = new ResponseBean("SUCESS","Api Key",apikey);
-            return ResponseEntity.ok(responseBean);
-        }
+        ApiKey apiKey = apiKeyRepo.findById(apikeyReq).
+                orElseThrow(() -> new NoDataFoundException("No API key found for given key : " + apikeyReq));
 
-        ResponseBean responseBean = new ResponseBean("FAILURE","Api Key not found","");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBean);
+        return apiKey;
 
     }
 
     @Override
-    public ResponseEntity<ResponseBean> getAllApiKeys(){
+    public List<ApiKey> getAllApiKeys(){
 
         List<ApiKey> apiKeys = apiKeyRepo.findAll();
-
-        ResponseBean responseBean = new ResponseBean("SUCCESS","Api Keys",apiKeys);
-
-        return ResponseEntity.ok(responseBean);
+        return apiKeys;
 
     }
 
 
     @Override
-    public ResponseEntity<ResponseBean> deleteApiKey(String id){
+    public ApiKey deleteApiKey(String id){
+
+        ApiKey existingKey = apiKeyRepo.findById(id).
+                orElseThrow(() -> new NoDataFoundException("Api Key not found"));
 
         apiKeyRepo.deleteById(id);
-        ResponseBean responseBean = new ResponseBean("SUCCESS","Api Key Deleted",id);
-        return ResponseEntity.ok(responseBean);
+        return existingKey;
 
     }
 
