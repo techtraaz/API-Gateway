@@ -24,7 +24,7 @@ A lightweight API Gateway built using Spring Boot that dynamically routes incomi
 ## 📂 Project Structure
 
 ## 🏗 Architecture
-![API Gateway Architecture](imp/gateway_archi.png)
+![API Gateway Architecture](img/gateway_archi.png)
 
 ## How It Works
 1. Client calls the API Gateway endpoint
